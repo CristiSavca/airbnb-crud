@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Airbnb CRUD</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+    <header>
+        <h1>Airbnb CRUD</h1>
+    </header>
+    <div id="app">
+        <form id="listing-form" class="form">
+            <fieldset class="field">
+                <legend class="legend">Add/Edit Listing</legend>
+                <div class="form-row">
+                    <label for="list_id">ListID</label>
+                    <input type="number" id="list_id" required>
+                </div>
+                <div class="form-row">
+                    <label for="airbnb_name">Airbnb Name</label>
+                    <input type="text" id="airbnb_name" required>
+                </div>
+                <div class="form-row">
+                    <label for="host_id">Host ID</label>
+                    <input type="number" id="host_id" required>
+                </div>
+                <div class="form-row">
+                    <label for="host_phone">Host Phone</label>
+                    <input type="text" id="host_phone" required>
+                </div>
+                <div class="form-row">
+                    <label for="host_name">Host Name</label>
+                    <input type="text" id="host_name" required>
+                </div>
+                <div class="form-row">
+                    <label for="neighbourhood">Neighbourhood</label>
+                    <input type="text" id="neighbourhood" required>
+                </div>
+                <div class="form-row">
+                    <label for="same_day_booking">Same-day Booking</label>
+                    <input type="checkbox" id="same_day_booking" required>
+                </div>
+                <div class="form-row">
+                    <label for="room_type">Room Type</label>
+                    <input type="text" id="room_type" required>
+                </div>
+                <div class="form-row">
+                    <label for="price">Price</label>
+                    <input type="number" id="price" required>
+                </div>
+                <div class="form-row">
+                    <label for="number_of_reviews">Number of Reviews</label>
+                    <input type="number" id="number_of_reviews" required>
+                </div>
+                <div class="form-row">
+                    <label for="review_rate_number">Review Rate Number</label>
+                    <input type="number" id="review_rate_number" required>
+                </div>
+                <div class="form-row">
+                    <button id="submit-listing">Submit</button>
+                    <button id="cancel-edit" style="display:none">Cancel</button>
+                </div>
+            </fieldset>
+        </form>
+
+        <table id="listing-table">
+            <thead>
+                <tr>
+                    <th>ListID</th>
+                    <th>Airbnb Name</th>
+                    <th>Host ID</th>
+                    <th>Host Phone</th>
+                    <th>Host Name</th>
+                    <th>Neighbourhood</th>
+                    <th>Same-day Booking</th>
+                    <th>Room Type</th>
+                    <th>Price</th>
+                    <th>Number of Reviews</th>
+                    <th>Review Rate Number</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody id="listing-table-body"></tbody>
+        </table>
+    </div>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            let submitButton = document.getElementById('submit-listing');
+
+            const listingTable = document.getElementById('listing-table');
+
+            let cancelButton = document.getElementById('cancel-edit');
+
+            cancelButton.addEventListener('click', (e) => {
+                e.preventDefault();
+                document.getElementById('listing-form').reset();
+                submitButton.innerText = 'Submit';
+                cancelButton.style.display = 'none';
+            });
+
+            async function fetchListings() {
+                const response = await fetch('http://localhost:5000/listings');
+                const listings = await response.json();
+                populateTable(listings);
+            }
+
+            function populateForm(listingObj) {
+                document.getElementById("list_id").value = listingObj.list_id;
+                document.getElementById("airbnb_name").value = listingObj.airbnb_name;
+                document.getElementById("host_id").value = listingObj.host_id;
+                document.getElementById("host_phone").value = listingObj.host_phone;
+                document.getElementById("host_name").value = listingObj.host_name;
+                document.getElementById("neighbourhood").value = listingObj.neighbourhood;
+                document.getElementById("same_day_booking").checked = listingObj.same_day_booking;
+                document.getElementById("room_type").value = listingObj.room_type;
+                document.getElementById("price").value = listingObj.price;
+                document.getElementById("number_of_reviews").value = listingObj.number_of_reviews;
+                document.getElementById("review_rate_number").value = listingObj.review_rate_number;
+                document.getElementById("submit-listing").innerText = "Update";
+
+                document.getElementById("submit-listing").innerText = "Update";
+                cancelButton.style.display = 'inline-block'; // Display the cancel button
+            }
+
+            function populateTable(listings) {
+                const tbody = document.getElementById('listing-table-body');
+                tbody.innerHTML = listings
+                    .map(
+                        (listing) => `
+                        <tr>
+                            <td>${listing.list_id}</td>
+                            <td>${listing.airbnb_name}</td>
+                            <td>${listing.host_id}</td>
+                            <td>${listing.host_phone}</td>
+                            <td>${listing.host_name}</td>
+                            <td>${listing.neighbourhood}</td>
+                            <td>${listing.same_day_booking}</td>
+                            <td>${listing.room_type}</td>
+                            <td>${listing.price}</td>
+                            <td>${listing.number_of_reviews}</td>
+                            <td>${listing.review_rate_number}</td>
+                            <td>
+                                <button class="edit-btn" data-id="${listing.list_id}">Edit</button>
+                                <button class="delete-btn" data-id="${listing.list_id}">Delete</button>
+                            </td>
+                        </tr>`
+                    )
+                    .join('');
+
+                const editButtons = document.querySelectorAll('.edit-btn');
+                const deleteButtons = document.querySelectorAll('.delete-btn');
+
+                editButtons.forEach((button) => {
+                    button.addEventListener('click', () => {
+                        submitButton.method = 'PUT';
+                        const id = parseInt(button.dataset.id);
+                        const listingObj = listings.find((listing) => listing.list_id === id);
+                        populateForm(listingObj);
+                    });
+                });
+
+                deleteButtons.forEach((button) => {
+                    button.addEventListener('click', async () => {
+                        const id = parseInt(button.dataset.id);
+                        const response = await fetch(`http://localhost:5000/listings/${id}`, {
+                            method: 'DELETE',
+                        });
+
+                        if (response.status === 200) {
+                            fetchListings();
+                        } else {
+                            console.error('An error occurred while deleting the listing');
+                        }
+                    });
+                });
+            }
+
+            submitButton.addEventListener('click', async (e) => {
+                e.preventDefault();
+
+                const list_id = document.getElementById('list_id').value;
+                const airbnb_name = document.getElementById('airbnb_name').value;
+                const host_id = document.getElementById('host_id').value;
+                const host_phone = document.getElementById('host_phone').value;
+                const host_name = document.getElementById('host_name').value;
+                const neighbourhood = document.getElementById('neighbourhood').value;
+                const same_day_booking = document.getElementById('same_day_booking').checked;
+                const room_type = document.getElementById('room_type').value;
+                const price = document.getElementById('price').value;
+                const number_of_reviews = document.getElementById('number_of_reviews').value;
+                const review_rate_number = document.getElementById('review_rate_number').value;
+
+                const listingObj = {
+                    list_id,
+                    airbnb_name,
+                    host_id,
+                    host_phone,
+                    host_name,
+                    neighbourhood,
+                    same_day_booking,
+                    room_type,
+                    price,
+                    number_of_reviews,
+                    review_rate_number
+                };
+
+                let url = 'http://localhost:5000/listings';
+                let method = 'POST';
+                const submitButton = document.getElementById('submit-listing');
+
+                if (submitButton.innerText === 'Update') {
+                    url += `/${listingObj.list_id}`;
+                    method = 'PUT';
+                }
+
+                const requestOptions = {
+                    method,
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(listingObj),
+                };
+
+                const response = await fetch(url, requestOptions);
+                const result = await response.json();
+
+                fetchListings();
+                document.getElementById('listing-form').reset();
+                submitButton.innerText = 'Submit';
+                cancelButton.style.display = 'none';
+            });
+            fetchListings();
+        });
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,111 @@
+body {
+    font-family: Arial, sans-serif;
+    width: 95%;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background: linear-gradient(-45deg, #943ce7, #2382d5, #c623d5);
+	background-size: 400% 400%;
+    color: white;
+	animation: gradient 15s ease infinite;
+	height: 100vh;
+    overflow-x: hidden;
+}
+
+@keyframes gradient {
+	0% {
+		background-position: 0% 50%;
+	}
+	50% {
+		background-position: 100% 50%;
+	}
+	100% {
+		background-position: 0% 50%;
+	}
+}
+
+h1 {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.field{
+    border: 2px solid white;
+    border-radius: 20px;
+}
+
+.legend{
+    border: 2px solid white;
+    margin: 0 auto;
+    border-radius: 10px;
+    padding: 5px;
+    margin-bottom: 7px;
+}
+
+form {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: fit-content;
+    width: 500px;
+    margin-bottom: 30px;
+    width: 100%;
+    text-align: center;
+}
+
+label,
+input {
+    flex: 1 1 auto;
+    margin: 0 10px 10px;
+}
+
+input[type="checkbox"] {
+    flex: 0 0 auto;
+    margin-right: 5px;
+}
+
+button {
+    background-color: #4CAF50;
+    border: none;
+    color: white;
+    padding: 10px 20px;
+    border-radius: 20px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    cursor: pointer;
+    width: 100px;
+}
+
+button:hover {
+    background-color: #45a049;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 10px;
+    border: 2px solid #ffffff;
+}
+
+th,
+td {
+    border: 1px solid #ffffff;
+    padding: 10px;
+    text-align: center;
+}
+
+th {
+    background-color: rgba(255, 255, 255, 0.2);
+}
+
+#cancel-edit {
+    background-color: #f44336;
+}
+
+#cancel-edit:hover {
+    background-color: #e53935;
+}
