@@ -24,3 +24,5 @@ CREATE TABLE IF NOT EXISTS airbnb_listings (
 node server.js // runs the server
 
 // run index.html in your browser
+
+<img width="1280" alt="image" src="https://user-images.githubusercontent.com/58373811/236727638-04e0ec3a-068b-44cf-bc50-7855d966a421.png">
