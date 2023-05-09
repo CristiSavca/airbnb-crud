@@ -5,7 +5,7 @@ body {
     display: flex;
     flex-direction: column;
     align-items: center;
-    background: linear-gradient(-45deg, #943ce7, #2382d5, #c623d5);
+    background: linear-gradient(-45deg, #9747ff, #1c8cee, #d523c6);
     background-size: 400% 400%;
     color: white;
     animation: gradient 15s ease infinite;
@@ -37,8 +37,10 @@ h1 {
     border: 2px solid white;
     border-radius: 20px;
     height: fit-content;
-    width: 500px;
+    width: 510px;
     margin-bottom: 50px;
+    background-color: transparent;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
 }
 
 .legend {
@@ -47,6 +49,7 @@ h1 {
     border-radius: 10px;
     padding: 5px;
     margin-bottom: 7px;
+    background-color: transparent;
 }
 
 form {
@@ -63,13 +66,14 @@ form {
     display: flex;
     justify-content: center;
     align-items: center;
-    margin-bottom: 7px;
+    margin-bottom: 12px;
 }
 
 .form-row label {
     text-align: center;
     margin-right: 30px;
     width: 30%; 
+    font-weight: bold;
 }
 
 .form-row input {
@@ -83,27 +87,8 @@ form {
     outline-color: transparent;
 }
 
-label,
-input {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
-input {
-    border: solid;
-    border-color: rgba(255, 255, 255, 0.8);
-    background-color: rgba(255, 255, 255, 0.8);
-    border-radius: 10px;
-    margin-bottom: 7px;
-    width: 400px;
-    text-align: center;
-}
-
-input[type="checkbox"] {
-    width: 50px;
-    height: 20px;
-    margin-right: 10px;
+.form-row input[type="checkbox"] {
+    accent-color: #13e81a;
 }
 
 button {
@@ -116,9 +101,10 @@ button {
     text-decoration: none;
     display: inline-block;
     font-size: 16px;
-    margin: 4px 2px;
+    margin: 4px 5px;
     cursor: pointer;
     width: 100px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
 }
 
 button:hover {
@@ -129,18 +115,20 @@ table {
     width: 100%;
     border-collapse: collapse;
     margin-bottom: 10px;
-    border: 2px solid #ffffff;
+    border: 1px solid rgba(35, 35, 35, 0.5);
+    box-shadow: 0 0 40px rgba(0, 0, 0, 0.5);
+    background-color: rgba(40, 40, 40, 0.5);
 }
 
 th,
 td {
-    border: 1px solid #ffffff;
+    border: 1px solid #ffffff80;
     padding: 10px;
     text-align: center;
 }
 
 th {
-    background-color: rgba(255, 255, 255, 0.2);
+    background-color: rgba(35, 35, 35, 0.5);
 }
 
 #cancel-edit {
