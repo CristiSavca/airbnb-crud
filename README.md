@@ -1,6 +1,6 @@
 # airbnb-crud
 
-<img width="1280" alt="image" src="https://user-images.githubusercontent.com/58373811/236727638-04e0ec3a-068b-44cf-bc50-7855d966a421.png">
+<img width="951" alt="Screenshot 2023-05-09 190333" src="https://github.com/CristiSavca/airbnb-crud/assets/58373811/97bacb34-9485-4355-8102-fbcf93a9b61f">
 
 Set password in server.js file to your PostgreSQL password.
 
